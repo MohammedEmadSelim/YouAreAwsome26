@@ -27,6 +27,7 @@ struct ContentView: View {
                     .resizable()
                     .scaledToFit()
                     .foregroundStyle(.purple)
+                
             }
             
         }
