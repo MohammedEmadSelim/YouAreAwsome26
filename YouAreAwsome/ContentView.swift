@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var message = " i am a developer"
+    @State private  var message = " i am a developer"
     var body: some View {
 //        VStack{
 //        Text("What is The Football to You?")
@@ -32,16 +32,18 @@ struct ContentView: View {
 //            }
 //            
 //        }
+     
+        
         VStack {
             Image(systemName: "swift")
                 .resizable()
-                .scaledToFit()
+//                .scaledToFit()
                 .foregroundStyle(.orange)
             Text(message)
                 .font(.largeTitle)
                 .fontWeight(.heavy)
                 .foregroundStyle(.red)
-            Button(message) {
+            Button("Click me") {
                     message = "Goutch"
                 print("Goutch")
             }
