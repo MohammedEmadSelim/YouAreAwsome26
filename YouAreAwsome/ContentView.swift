@@ -37,7 +37,7 @@ struct ContentView: View {
         VStack {
             Image(systemName: "swift")
                 .resizable()
-//                .scaledToFit()
+                .scaledToFit()
                 .foregroundStyle(.orange)
             Text(message)
                 .font(.largeTitle)
