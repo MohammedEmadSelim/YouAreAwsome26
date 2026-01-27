@@ -11,8 +11,9 @@ struct ContentView: View {
     @State private  var message = ""
     @State private var img = ""
     @State private var imgNumber  = 0
-//    @State private var messageNumber  = 0
-    
+    @State private var lastMessageNumber  = -1
+    @State private var lastImageNumber  = -1
+
     
     
     var body: some View {
@@ -71,10 +72,25 @@ struct ContentView: View {
                                     
                     ]
                     
+                    var messageNumber = Int.random(in: 0..<messages.count)
                     
+                    while messageNumber == lastMessageNumber {
+                        messageNumber = Int.random(in: 0..<messages.count)
+                        
+                   
+                    }
+                    lastMessageNumber = messageNumber
+                    message = messages[messageNumber]
                     
-                    message = messages[Int.random(in: 0..<messages.count)]
-                    img = "image" + String(Int.random(in: 0...9))
+                    var imgNumber = Int.random(in: 0...9)
+                    
+                    while imgNumber == lastImageNumber {
+                        imgNumber = Int.random(in: 0...9)
+                        
+                    }
+                    lastImageNumber = imgNumber
+                    img = "image" + String(imgNumber)
+                    
                     
 //                    imgNumber += 1
 //                    messageNumber += 1
