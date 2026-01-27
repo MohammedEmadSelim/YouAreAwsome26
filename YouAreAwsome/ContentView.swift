@@ -11,7 +11,7 @@ struct ContentView: View {
     @State private  var message = ""
     @State private var img = ""
     @State private var imgNumber  = 0
-    @State private var messageNumber  = 0
+//    @State private var messageNumber  = 0
     
     
     
@@ -68,21 +68,22 @@ struct ContentView: View {
                                     "You Are Fantastic",
                                     "You Make Me Smile",
                                     "When the genuis Bar needs help, they call you"
-                            
-                                    ]
+                                    
+                    ]
                     
                     
                     
-                    message = messages[messageNumber]
-                    img = "image" + String(imgNumber)
-                    imgNumber += 1
-                    messageNumber += 1
-                    if imgNumber > 9{
-                        imgNumber = 0
-                    }
-                    if messageNumber >= messages.count{
-                        messageNumber = 0
-                    }
+                    message = messages[Int.random(in: 0..<messages.count)]
+                    img = "image" + String(Int.random(in: 0...9))
+                    
+//                    imgNumber += 1
+//                    messageNumber += 1
+//                    if imgNumber > 9{
+//                        imgNumber = 0
+//                    }
+//                    if messageNumber >= messages.count{
+//                        messageNumber = 0
+//                    }
                     
                 }
                 
