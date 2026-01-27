@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private  var message = " i am a developer"
+    @State private  var message = ""
+    @State private var img = ""
+    @State private var imgNumber  = 0
+    @State private var messageNumber  = 0
+    
+    
     
     var body: some View {
         //        VStack{
@@ -36,27 +41,50 @@ struct ContentView: View {
         
         
         VStack {
-            Spacer()
-            Image(systemName: "swift")
-                .resizable()
-                .scaledToFit()
-                .foregroundStyle(.orange)
-                .frame(width: 200, height: 200)
             Text(message)
                 .font(.largeTitle)
-                .fontWeight(.ultraLight)
-                .foregroundStyle(.black)
+                .fontWeight(.heavy)
+                .foregroundStyle(.red)
+                .multilineTextAlignment(.center)
+                .minimumScaleFactor(0.5)
+                .frame(height: 120)
+                .animation(.easeInOut(duration: 0.15), value: message)
+            Image(img)
+                .resizable()
+                .scaledToFit()
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .shadow(radius: 30)
+                .animation(.easeInOut, value: img)
+            
+            
+     
             Spacer()
             HStack{
-                Button("Aweosme!") {
-                    message = "Aweosme"
-                    print("Aweosme")
+                Button("Press me!") {
+                    let messages = ["You are Awesome!",
+                                    "Hello, there u make me happy touch the screen to get your gift",
+                                    "You Are Great!",
+                                    "Fabulous,  that's you",
+                                    "You Are Fantastic",
+                                    "You Make Me Smile",
+                                    "When the genuis Bar needs help, they call you"
+                            
+                                    ]
+                    
+                    
+                    
+                    message = messages[messageNumber]
+                    img = "image" + String(imgNumber)
+                    imgNumber += 1
+                    messageNumber += 1
+                    if imgNumber > 9{
+                        imgNumber = 0
+                    }
+                    if messageNumber >= messages.count{
+                        messageNumber = 0
+                    }
+                    
                 }
-                Button("Great!"){
-                    message = "Great"
-                    print("Great")
-                }
-                
                 
             }
             .buttonStyle(.borderedProminent)
@@ -64,7 +92,9 @@ struct ContentView: View {
             .tint(.orange)
             
         }
+        .padding(15)
     }
+    
 }
 
 #Preview {
