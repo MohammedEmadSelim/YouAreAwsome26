@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFAudio
 
 struct ContentView: View {
     @State private  var message = ""
@@ -13,32 +14,15 @@ struct ContentView: View {
     @State private var imgNumber  = 0
     @State private var lastMessageNumber  = -1
     @State private var lastImageNumber  = -1
-
+    @State private var lastSoundNumber  = -1
+    let imageCount = 10
+    @State private var soundPlayer: AVAudioPlayer!
+    
     
     
     var body: some View {
-        //        VStack{
-        //        Text("What is The Football to You?")
-        //                .font(.largeTitle)
-        //                .fontWeight(.thin)
-        //                .foregroundStyle(.green)
-        //            HStack{
-        //                Image(systemName:"figure.american.football")
-        //                    .resizable()
-        //                    .scaledToFit()
-        //                    .foregroundStyle(.blue)
-        //                Image(systemName:"figure.australian.football")
-        //                    .resizable()
-        //                    .scaledToFit()
-        //                    .foregroundStyle(.indigo)
-        //                Image(systemName:"figure.indoor.soccer")
-        //                    .resizable()
-        //                    .scaledToFit()
-        //                    .foregroundStyle(.purple)
-        //
-        //            }
-        //
-        //        }
+        
+        
         
         
         VStack {
@@ -58,7 +42,7 @@ struct ContentView: View {
                 .animation(.easeInOut, value: img)
             
             
-     
+            
             Spacer()
             HStack{
                 Button("Press me!") {
@@ -72,35 +56,45 @@ struct ContentView: View {
                                     
                     ]
                     
-                    var messageNumber = Int.random(in: 0..<messages.count)
+                    var messageNumber :Int
                     
-                    while messageNumber == lastMessageNumber {
+                    repeat  {
                         messageNumber = Int.random(in: 0..<messages.count)
                         
-                   
-                    }
+                    } while messageNumber == lastMessageNumber
                     lastMessageNumber = messageNumber
                     message = messages[messageNumber]
                     
-                    var imgNumber = Int.random(in: 0...9)
+                    var imgNumber :Int
                     
-                    while imgNumber == lastImageNumber {
-                        imgNumber = Int.random(in: 0...9)
+                    repeat{
+                        imgNumber = Int.random(in: 0...imageCount - 1)
                         
-                    }
+                    } while imgNumber == lastImageNumber
                     lastImageNumber = imgNumber
                     img = "image" + String(imgNumber)
                     
+                    var soundNumber  = Int.random(in: 0...5)
                     
-//                    imgNumber += 1
-//                    messageNumber += 1
-//                    if imgNumber > 9{
-//                        imgNumber = 0
-//                    }
-//                    if messageNumber >= messages.count{
-//                        messageNumber = 0
-//                    }
+                    repeat {
+                        soundNumber  = Int.random(in: 0...5)
+                    } while soundNumber == lastSoundNumber
+                    lastSoundNumber = soundNumber
                     
+                    let soundName = "sound\(soundNumber)"
+                    
+                    guard let soundFile = NSDataAsset(name: soundName) else {
+                        print("sound file of \(soundName) is uploaded")
+                        return
+                    }
+                    
+                    do{
+                        soundPlayer = try AVAudioPlayer(data: soundFile.data)
+                        soundPlayer.play()
+                    }catch{
+                        print("😡 an error occure \(error)")
+                        
+                    }
                 }
                 
             }
