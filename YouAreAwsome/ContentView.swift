@@ -55,46 +55,22 @@ struct ContentView: View {
                                     "When the genuis Bar needs help, they call you"
                                     
                     ]
+                  
+                    lastMessageNumber = nonRepeatingRandom(upperBonds: messages.count, lastNumber: lastMessageNumber)
+                    message = messages[lastMessageNumber]
                     
-                    var messageNumber :Int
+                
+            
+                    lastImageNumber = nonRepeatingRandom(upperBonds: imageCount, lastNumber: lastImageNumber)
+                    img = "image" + String(lastImageNumber)
                     
-                    repeat  {
-                        messageNumber = Int.random(in: 0..<messages.count)
-                        
-                    } while messageNumber == lastMessageNumber
-                    lastMessageNumber = messageNumber
-                    message = messages[messageNumber]
+                   
+                    lastSoundNumber = nonRepeatingRandom(upperBonds: 6, lastNumber: lastSoundNumber)
                     
-                    var imgNumber :Int
+                    let soundName = "sound\(lastSoundNumber)"
+                    playSound(soundName: soundName)
                     
-                    repeat{
-                        imgNumber = Int.random(in: 0...imageCount - 1)
-                        
-                    } while imgNumber == lastImageNumber
-                    lastImageNumber = imgNumber
-                    img = "image" + String(imgNumber)
                     
-                    var soundNumber  = Int.random(in: 0...5)
-                    
-                    repeat {
-                        soundNumber  = Int.random(in: 0...5)
-                    } while soundNumber == lastSoundNumber
-                    lastSoundNumber = soundNumber
-                    
-                    let soundName = "sound\(soundNumber)"
-                    
-                    guard let soundFile = NSDataAsset(name: soundName) else {
-                        print("sound file of \(soundName) is uploaded")
-                        return
-                    }
-                    
-                    do{
-                        soundPlayer = try AVAudioPlayer(data: soundFile.data)
-                        soundPlayer.play()
-                    }catch{
-                        print("😡 an error occure \(error)")
-                        
-                    }
                 }
                 
             }
@@ -106,6 +82,31 @@ struct ContentView: View {
         .padding(15)
     }
     
+    func playSound(soundName: String){
+        guard let soundFile = NSDataAsset(name: soundName) else {
+            print("sound file of \(soundName) is uploaded")
+            return
+        }
+        
+        do{
+            soundPlayer = try AVAudioPlayer(data: soundFile.data)
+            soundPlayer.play()
+        }catch{
+            print("😡 an error occure \(error)")
+            
+        }
+    }
+    
+    func nonRepeatingRandom (upperBonds: Int , lastNumber: Int) -> Int{
+        var messageNumber :Int
+        
+        repeat  {
+            messageNumber = Int.random(in: 0..<upperBonds)
+            
+        } while messageNumber == lastMessageNumber
+        return messageNumber
+        
+    }
 }
 
 #Preview {
